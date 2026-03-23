@@ -2,183 +2,264 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>PDF Master | Professional Document Suite</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>PDF Master Pro | Ultimate PDF Toolkit</title>
     
     <!-- Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #ec489a;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gradient-1: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec489a 100%);
+            --gradient-2: linear-gradient(135deg, #10b981 0%, #3b82f6 100%);
+            --shadow-sm: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.1);
+            --shadow-xl: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at 20% 30%, #0a0a2a, #050510);
+            background: var(--darker);
             min-height: 100vh;
-            overflow-x: hidden;
             position: relative;
+            overflow-x: hidden;
         }
-        
-        /* Animated Background */
-        body::before {
-            content: '';
+
+        .bg-gradient {
             position: fixed;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(102,126,234,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: moveBackground 60s linear infinite;
-            pointer-events: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(99,102,241,0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(236,72,153,0.1) 0%, transparent 50%);
+            z-index: 0;
         }
-        
-        @keyframes moveBackground {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(-50%, -50%); }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
         }
-        
-        /* Glass Morphism Container */
+
+        .particle {
+            position: absolute;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 20s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-100px) translateX(50px) rotate(90deg); }
+            75% { transform: translateY(100px) translateX(-50px) rotate(180deg); }
+        }
+
         .container {
-            max-width: 1300px;
-            margin: 2rem auto;
-            padding: 0 2rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 24px;
             position: relative;
             z-index: 1;
         }
-        
-        /* Premium Header */
+
         .header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 48px;
             animation: slideDown 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         }
-        
-        .badge {
-            display: inline-block;
-            background: rgba(102, 126, 234, 0.2);
+
+        .premium-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(99,102,241,0.2);
             backdrop-filter: blur(10px);
-            padding: 0.5rem 1rem;
+            padding: 8px 20px;
             border-radius: 100px;
-            font-size: 0.75rem;
+            font-size: 12px;
             font-weight: 600;
             letter-spacing: 1px;
-            color: #a0a0ff;
-            margin-bottom: 1rem;
-            border: 1px solid rgba(102, 126, 234, 0.3);
+            color: var(--primary);
+            margin-bottom: 24px;
+            border: 1px solid rgba(99,102,241,0.3);
+            animation: pulse 2s infinite;
         }
-        
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(99,102,241,0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(99,102,241,0); }
+        }
+
         h1 {
-            font-size: 3.5rem;
+            font-size: 64px;
             font-weight: 800;
-            background: linear-gradient(135deg, #fff, #a0a0ff);
+            background: var(--gradient-1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 0.5rem;
+            margin-bottom: 16px;
             letter-spacing: -0.02em;
         }
-        
+
         .subtitle {
-            color: rgba(255,255,255,0.6);
-            font-size: 1rem;
-            font-weight: 400;
+            color: var(--gray);
+            font-size: 18px;
+            font-weight: 500;
         }
-        
-        /* 3D Card Effect */
-        .card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            border-radius: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            overflow: hidden;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Tabs - Minimal Premium */
-        .tabs {
+
+        .stats-grid {
             display: flex;
-            gap: 0.5rem;
-            padding: 1.5rem 2rem 0 2rem;
-            background: rgba(0, 0, 0, 0.3);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            justify-content: center;
+            gap: 24px;
+            margin-bottom: 48px;
+            flex-wrap: wrap;
         }
-        
-        .tab-btn {
-            padding: 0.875rem 1.75rem;
+
+        .stat-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            background: rgba(99,102,241,0.1);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--gradient-1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .stat-info h4 {
+            color: white;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .stat-info p {
+            color: var(--gray);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .nav-wrapper {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 8px;
+            margin-bottom: 32px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .main-nav {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            padding: 12px 28px;
             background: transparent;
             border: none;
-            color: rgba(255,255,255,0.6);
-            font-family: 'Inter', sans-serif;
+            border-radius: 14px;
+            color: var(--gray);
             font-weight: 600;
-            font-size: 0.9rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border-radius: 12px;
-            position: relative;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
         }
-        
-        .tab-btn:hover {
+
+        .nav-item i {
+            font-size: 16px;
+        }
+
+        .nav-item:hover {
             color: white;
-            background: rgba(255,255,255,0.05);
+            background: rgba(99,102,241,0.2);
         }
-        
-        .tab-btn.active {
+
+        .nav-item.active {
+            background: var(--gradient-1);
             color: white;
-            background: linear-gradient(135deg, rgba(102,126,234,0.2), rgba(118,75,162,0.2));
-            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-md);
         }
-        
-        .tab-btn.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1.5rem;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 3px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            border-radius: 3px;
-        }
-        
-        /* Content Area */
-        .content {
-            padding: 2rem;
-        }
-        
-        .tab-pane {
+
+        .section {
             display: none;
             animation: fadeInUp 0.5s ease;
         }
-        
-        .tab-pane.active {
+
+        .section.active {
             display: block;
         }
-        
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        
+
         @keyframes slideDown {
             from {
                 opacity: 0;
@@ -189,181 +270,365 @@
                 transform: translateY(0);
             }
         }
-        
-        /* Form Elements - Premium Style */
-        .input-group {
-            margin-bottom: 1.5rem;
+
+        .premium-card {
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 28px;
+            border: 1px solid rgba(255,255,255,0.1);
+            overflow: hidden;
+            transition: all 0.3s;
+            margin-bottom: 24px;
         }
-        
-        label {
+
+        .premium-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(99,102,241,0.3);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .card-header {
+            padding: 24px 28px;
+            background: rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .card-header h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card-header h3 i {
+            color: var(--primary);
+        }
+
+        .card-content {
+            padding: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: rgba(255,255,255,0.8);
-            font-weight: 500;
-            font-size: 0.875rem;
-            letter-spacing: 0.3px;
+            margin-bottom: 10px;
+            color: var(--gray);
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        
-        input, textarea, select {
+
+        .form-label i {
+            margin-right: 8px;
+            color: var(--primary);
+        }
+
+        textarea, input, select {
             width: 100%;
-            padding: 0.875rem 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
+            padding: 14px 18px;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
             color: white;
             font-family: 'Inter', sans-serif;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+            font-size: 14px;
+            transition: all 0.3s;
         }
-        
-        input:focus, textarea:focus, select:focus {
+
+        textarea:focus, input:focus, select:focus {
             outline: none;
-            border-color: #667eea;
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99,102,241,0.2);
         }
-        
-        textarea {
-            resize: vertical;
-            min-height: 200px;
-        }
-        
-        /* Premium Button */
+
         .btn {
-            padding: 0.875rem 1.75rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 14px 28px;
             border: none;
-            border-radius: 12px;
-            color: white;
-            font-weight: 600;
-            font-size: 0.9rem;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 14px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             position: relative;
             overflow: hidden;
         }
-        
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s ease;
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: var(--shadow-sm);
         }
-        
-        .btn:hover::before {
-            left: 100%;
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
         }
-        
+
+        .btn-success {
+            background: var(--gradient-2);
+            color: white;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+        }
+
         .btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(102, 126, 234, 0.4);
+            box-shadow: var(--shadow-md);
         }
-        
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        /* Quality Options - Minimal */
-        .quality-grid {
-            display: flex;
-            gap: 1rem;
-            margin-top: 0.5rem;
-            flex-wrap: wrap;
-        }
-        
-        .quality-option {
-            flex: 1;
-            min-width: 80px;
-        }
-        
-        .quality-option input {
-            display: none;
-        }
-        
-        .quality-option label {
-            display: block;
-            padding: 0.625rem;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 0;
-            font-size: 0.8rem;
-        }
-        
-        .quality-option input:checked + label {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-color: transparent;
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
-        }
-        
-        /* Image Preview */
-        .preview-grid {
+
+        .grid-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
         }
-        
-        .preview-item {
-            position: relative;
-            border-radius: 12px;
-            overflow: hidden;
-            aspect-ratio: 1;
-            background: rgba(255,255,255,0.05);
+
+        @media (max-width: 1024px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+            h1 {
+                font-size: 40px;
+            }
         }
-        
-        .preview-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        /* Code Editor */
-        .code-container {
+
+        .code-editor {
             background: #0a0a0f;
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
         }
-        
+
         .code-header {
-            padding: 1rem;
             background: rgba(0,0,0,0.5);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        
-        /* Message Toast */
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            padding: 1rem 1.5rem;
-            background: rgba(0,0,0,0.9);
-            backdrop-filter: blur(20px);
-            border-radius: 12px;
+
+        .language-select {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
             color: white;
-            font-weight: 500;
-            z-index: 1000;
-            animation: slideInRight 0.3s ease;
-            border-left: 3px solid #667eea;
+            padding: 10px 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            min-width: 150px;
         }
-        
+
+        .language-select option {
+            background: var(--dark);
+            color: white;
+        }
+
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+        }
+
+        .tool-btn {
+            padding: 8px 14px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .tool-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .rich-editor {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 20px;
+            min-height: 300px;
+            color: white;
+            overflow-y: auto;
+        }
+
+        .labels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .label-card {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .label-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        /* Table Builder Styles */
+        .table-builder-container {
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            padding: 20px;
+        }
+
+        .table-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-group label {
+            color: var(--gray);
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .number-input {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .number-input input {
+            flex: 1;
+            text-align: center;
+        }
+
+        .number-input button {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+        }
+
+        .number-input button:hover {
+            background: var(--primary);
+        }
+
+        .table-style-options {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .style-chip {
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 100px;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+        }
+
+        .style-chip:hover, .style-chip.active {
+            background: var(--gradient-1);
+            border-color: transparent;
+        }
+
+        .table-preview-container {
+            background: rgba(0,0,0,0.4);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .preview-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .preview-table th,
+        .preview-table td {
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 12px;
+            text-align: left;
+            color: white;
+        }
+
+        .preview-table th {
+            background: rgba(99,102,241,0.3);
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 10000;
+        }
+
+        .toast {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            padding: 14px 20px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            border-left: 3px solid var(--primary);
+            animation: slideInRight 0.3s ease;
+        }
+
         @keyframes slideInRight {
             from {
                 opacity: 0;
@@ -374,549 +639,651 @@
                 transform: translateX(0);
             }
         }
-        
-        /* Loading Spinner */
-        .spinner {
-            display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.6s linear infinite;
-            margin-left: 0.5rem;
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* Responsive */
+
         @media (max-width: 768px) {
             .container {
-                padding: 0 1rem;
-                margin: 1rem auto;
+                padding: 16px;
             }
-            
-            h1 {
-                font-size: 2rem;
+            .nav-item {
+                padding: 8px 16px;
+                font-size: 12px;
             }
-            
-            .tabs {
-                padding: 1rem;
-                overflow-x: auto;
+            .card-header {
+                padding: 18px 20px;
             }
-            
-            .tab-btn {
-                padding: 0.625rem 1rem;
-                font-size: 0.8rem;
-                white-space: nowrap;
+            .card-content {
+                padding: 20px;
             }
-            
-            .content {
-                padding: 1.5rem;
-            }
-            
-            .quality-grid {
-                flex-direction: column;
-            }
-        }
-        
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.05);
-        }
-        
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255,255,255,0.2);
-            border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255,255,255,0.3);
-        }
-        
-        /* Utility */
-        .mt-3 {
-            margin-top: 1rem;
-        }
-        
-        .flex {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
         }
     </style>
 </head>
 <body>
+    <div class="bg-gradient"></div>
+    <div class="particles" id="particles"></div>
+
     <div class="container">
         <div class="header">
-            <div class="badge">PREMIUM SUITE</div>
-            <h1>PDF Master</h1>
-            <div class="subtitle">Professional Document Conversion Suite</div>
-        </div>
-        
-        <div class="card">
-            <div class="tabs">
-                <button class="tab-btn active" data-tab="text">Text</button>
-                <button class="tab-btn" data-tab="image">Image</button>
-                <button class="tab-btn" data-tab="code">Code</button>
-                <button class="tab-btn" data-tab="edit">Edit</button>
+            <div class="premium-badge">
+                <i class="fas fa-crown"></i>
+                PREMIUM PDF TOOLKIT
             </div>
-            
-            <div class="content">
-                <!-- Text to PDF -->
-                <div class="tab-pane active" id="textPane">
-                    <div class="input-group">
-                        <label>Document Title</label>
-                        <input type="text" id="docTitle" placeholder="Untitled Document">
+            <h1>PDF Master Pro</h1>
+            <div class="subtitle">Complete PDF Solution | Code to PDF | Advanced Editor | Table Builder</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-bolt"></i></div>
+                <div class="stat-info">
+                    <h4>&lt;1s</h4>
+                    <p>Conversion Speed</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="stat-info">
+                    <h4>100%</h4>
+                    <p>Client-Side Secure</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-globe"></i></div>
+                <div class="stat-info">
+                    <h4>1M+</h4>
+                    <p>Global Users</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-wrapper">
+            <div class="main-nav">
+                <button class="nav-item active" data-section="converter"><i class="fas fa-file-alt"></i> PDF Converter</button>
+                <button class="nav-item" data-section="code"><i class="fas fa-code"></i> Code to PDF</button>
+                <button class="nav-item" data-section="editor"><i class="fas fa-edit"></i> Advanced Editor</button>
+                <button class="nav-item" data-section="table"><i class="fas fa-table"></i> Table Builder</button>
+                <button class="nav-item" data-section="labels"><i class="fas fa-tags"></i> Label Maker</button>
+            </div>
+        </div>
+
+        <!-- PDF Converter Section -->
+        <div id="converterSection" class="section active">
+            <div class="grid-2">
+                <div class="premium-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-file-alt"></i> Text to PDF</h3>
                     </div>
-                    <div class="input-group">
-                        <label>Content</label>
-                        <textarea id="textContent" placeholder="Write or paste your content here..."></textarea>
+                    <div class="card-content">
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-paragraph"></i> Content</label>
+                            <textarea id="textContent" rows="8" placeholder="Enter your amazing content here..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-tag"></i> Document Title</label>
+                            <input type="text" id="docTitle" placeholder="My Document">
+                        </div>
+                        <button class="btn btn-primary" id="convertTextBtn" style="width: 100%;">
+                            <i class="fas fa-magic"></i> Generate PDF
+                        </button>
                     </div>
-                    <div class="input-group">
-                        <label>Quality</label>
-                        <div class="quality-grid">
-                            <div class="quality-option">
-                                <input type="radio" name="textQuality" value="standard" id="textStd" checked>
-                                <label for="textStd">Standard</label>
+                </div>
+
+                <div class="premium-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-images"></i> Image to PDF</h3>
+                    </div>
+                    <div class="card-content">
+                        <div class="form-group">
+                            <label class="form-label"><i class="fas fa-upload"></i> Upload Images</label>
+                            <input type="file" id="imageFiles" accept="image/*" multiple>
+                        </div>
+                        <div id="imagePreview" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px; margin-top: 16px;"></div>
+                        <button class="btn btn-primary" id="convertImageBtn" style="width: 100%; margin-top: 16px;">
+                            <i class="fas fa-file-pdf"></i> Convert to PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code to PDF Section -->
+        <div id="codeSection" class="section">
+            <div class="premium-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-code"></i> Code to PDF with Syntax Highlighting</h3>
+                </div>
+                <div class="card-content">
+                    <div class="code-editor">
+                        <div class="code-header">
+                            <select id="codeLanguage" class="language-select">
+                                <option value="javascript">🔷 JavaScript</option>
+                                <option value="python">🐍 Python</option>
+                                <option value="java">☕ Java</option>
+                                <option value="cpp">⚙️ C++</option>
+                                <option value="php">🐘 PHP</option>
+                                <option value="ruby">💎 Ruby</option>
+                                <option value="go">🐹 Go</option>
+                                <option value="rust">🦀 Rust</option>
+                                <option value="sql">🗄️ SQL</option>
+                                <option value="html">🌐 HTML</option>
+                                <option value="css">🎨 CSS</option>
+                            </select>
+                            <button class="tool-btn" id="formatCodeBtn"><i class="fas fa-magic"></i> Format Code</button>
+                        </div>
+                        <textarea id="codeInput" style="width: 100%; min-height: 300px; background: #0a0a0f; color: #d4d4d4; padding: 20px; border: none; font-family: monospace; font-size: 14px;" placeholder="Paste your code here..."></textarea>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="form-label"><i class="fas fa-tag"></i> Code Title</label>
+                        <input type="text" id="codeTitle" placeholder="My Code">
+                    </div>
+                    <button class="btn btn-primary" id="convertCodeBtn" style="width: 100%;">
+                        <i class="fas fa-file-code"></i> Generate Code PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Editor Section -->
+        <div id="editorSection" class="section">
+            <div class="premium-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-edit"></i> Advanced Text Editor</h3>
+                </div>
+                <div class="card-content">
+                    <div class="toolbar">
+                        <button class="tool-btn" onclick="execCommand('bold')"><i class="fas fa-bold"></i></button>
+                        <button class="tool-btn" onclick="execCommand('italic')"><i class="fas fa-italic"></i></button>
+                        <button class="tool-btn" onclick="execCommand('underline')"><i class="fas fa-underline"></i></button>
+                        <button class="tool-btn" onclick="execCommand('insertUnorderedList')"><i class="fas fa-list-ul"></i></button>
+                        <button class="tool-btn" onclick="addBox()"><i class="fas fa-square"></i> Add Box</button>
+                        <button class="tool-btn" onclick="addTable()"><i class="fas fa-table"></i> Add Table</button>
+                        <button class="tool-btn" onclick="eraserMode()"><i class="fas fa-eraser"></i> Eraser Mode</button>
+                        <button class="tool-btn" onclick="clearEditor()"><i class="fas fa-trash"></i> Clear All</button>
+                        <button class="tool-btn" onclick="renameDocument()"><i class="fas fa-pen"></i> Rename</button>
+                    </div>
+                    <div id="richEditor" class="rich-editor" contenteditable="true">
+                        <h2>Welcome to PDF Master Pro</h2>
+                        <p>Create stunning documents with our advanced editor. Format text, add boxes, tables, and more!</p>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label class="form-label"><i class="fas fa-tag"></i> Document Title</label>
+                        <input type="text" id="editorTitle" placeholder="My Document">
+                    </div>
+                    <button class="btn btn-primary" id="convertEditorBtn" style="width: 100%;">
+                        <i class="fas fa-save"></i> Save as PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Builder Section -->
+        <div id="tableSection" class="section">
+            <div class="premium-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-table"></i> Professional Table Builder</h3>
+                    <div class="table-style-options">
+                        <div class="style-chip active" data-style="default">Default</div>
+                        <div class="style-chip" data-style="striped">Striped</div>
+                        <div class="style-chip" data-style="bordered">Bordered</div>
+                        <div class="style-chip" data-style="compact">Compact</div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="table-builder-container">
+                        <div class="table-controls">
+                            <div class="control-group">
+                                <label><i class="fas fa-rows"></i> Number of Rows</label>
+                                <div class="number-input">
+                                    <button onclick="decrementRows()">-</button>
+                                    <input type="number" id="tableRows" value="3" min="1" max="20">
+                                    <button onclick="incrementRows()">+</button>
+                                </div>
                             </div>
-                            <div class="quality-option">
-                                <input type="radio" name="textQuality" value="high" id="textHigh">
-                                <label for="textHigh">High</label>
-                            </div>
-                            <div class="quality-option">
-                                <input type="radio" name="textQuality" value="ultra" id="textUltra">
-                                <label for="textUltra">Ultra</label>
+                            <div class="control-group">
+                                <label><i class="fas fa-columns"></i> Number of Columns</label>
+                                <div class="number-input">
+                                    <button onclick="decrementCols()">-</button>
+                                    <input type="number" id="tableCols" value="3" min="1" max="20">
+                                    <button onclick="incrementCols()">+</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <button class="btn" onclick="convertText()">Generate PDF</button>
-                </div>
-                
-                <!-- Image to PDF -->
-                <div class="tab-pane" id="imagePane">
-                    <div class="input-group">
-                        <label>Upload Images</label>
-                        <input type="file" id="imageInput" accept="image/*" multiple onchange="previewImages()">
-                    </div>
-                    <div class="input-group">
-                        <label>Quality</label>
-                        <div class="quality-grid">
-                            <div class="quality-option">
-                                <input type="radio" name="imgQuality" value="0.7" id="imgStd" checked>
-                                <label for="imgStd">Standard</label>
-                            </div>
-                            <div class="quality-option">
-                                <input type="radio" name="imgQuality" value="0.9" id="imgHigh">
-                                <label for="imgHigh">High</label>
-                            </div>
-                            <div class="quality-option">
-                                <input type="radio" name="imgQuality" value="1.0" id="imgUltra">
-                                <label for="imgUltra">Ultra</label>
-                            </div>
+                        
+                        <div class="table-preview-container" id="tablePreviewContainer"></div>
+                        
+                        <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 20px;">
+                            <button class="btn btn-secondary" id="addRowBtn"><i class="fas fa-plus"></i> Add Row</button>
+                            <button class="btn btn-secondary" id="addColumnBtn"><i class="fas fa-plus"></i> Add Column</button>
+                            <button class="btn btn-secondary" id="removeRowBtn"><i class="fas fa-minus"></i> Remove Row</button>
+                            <button class="btn btn-secondary" id="removeColumnBtn"><i class="fas fa-minus"></i> Remove Column</button>
+                            <button class="btn btn-success" id="exportTableBtn"><i class="fas fa-file-pdf"></i> Export to PDF</button>
+                            <button class="btn btn-danger" id="resetTableBtn"><i class="fas fa-redo"></i> Reset</button>
                         </div>
                     </div>
-                    <div id="imagePreviewContainer" style="display: none;">
-                        <div class="preview-grid" id="imageGrid"></div>
-                    </div>
-                    <button class="btn" id="convertImagesBtn" onclick="convertImages()" disabled>Generate PDF</button>
                 </div>
-                
-                <!-- Code to PDF -->
-                <div class="tab-pane" id="codePane">
-                    <div class="input-group">
-                        <label>Title</label>
-                        <input type="text" id="codeTitle" placeholder="Code Documentation">
+            </div>
+        </div>
+
+        <!-- Label Maker Section -->
+        <div id="labelsSection" class="section">
+            <div class="premium-card">
+                <div class="card-header">
+                    <h3><i class="fas fa-tags"></i> Label Maker</h3>
+                </div>
+                <div class="card-content">
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-font"></i> Label Text</label>
+                        <input type="text" id="labelText" placeholder="Enter label text">
                     </div>
-                    <div class="input-group">
-                        <label>Language</label>
-                        <select id="codeLang">
-                            <option value="javascript">JavaScript</option>
-                            <option value="python">Python</option>
-                            <option value="java">Java</option>
-                            <option value="cpp">C++</option>
-                            <option value="html">HTML</option>
-                            <option value="css">CSS</option>
+                    <div class="form-group">
+                        <label class="form-label"><i class="fas fa-palette"></i> Color</label>
+                        <select id="labelColor">
+                            <option value="#6366f1">Premium Blue</option>
+                            <option value="#10b981">Success Green</option>
+                            <option value="#ef4444">Danger Red</option>
+                            <option value="#f59e0b">Warning Orange</option>
+                            <option value="#8b5cf6">Royal Purple</option>
                         </select>
                     </div>
-                    <div class="input-group">
-                        <label>Code</label>
-                        <textarea id="codeInput" rows="12" placeholder="Paste your code here..."></textarea>
-                    </div>
-                    <button class="btn" onclick="convertCode()">Generate PDF</button>
-                </div>
-                
-                <!-- Edit PDF -->
-                <div class="tab-pane" id="editPane">
-                    <div class="input-group">
-                        <label>Upload PDF</label>
-                        <input type="file" id="pdfFile" accept=".pdf">
-                    </div>
-                    <div class="flex">
-                        <button class="btn btn-secondary" onclick="extractInfo()">Extract Info</button>
-                        <button class="btn btn-secondary" onclick="rotateDocument()">Rotate 90°</button>
-                        <button class="btn btn-secondary" onclick="compressDocument()">Compress</button>
-                    </div>
-                    <div id="editResult" style="margin-top: 1rem; display: none;">
-                        <div class="input-group">
-                            <label>Information</label>
-                            <textarea id="infoText" rows="6" readonly style="background: rgba(0,0,0,0.3);"></textarea>
-                        </div>
-                    </div>
+                    <button class="btn btn-secondary" id="addLabelBtn" style="width: 100%;"><i class="fas fa-plus"></i> Add Label</button>
+                    <div id="labelsContainer" class="labels-grid"></div>
+                    <button class="btn btn-primary" id="exportLabelsBtn" style="width: 100%; margin-top: 16px;">
+                        <i class="fas fa-file-pdf"></i> Export Labels to PDF
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-    
+
+    <div class="toast-container" id="toastContainer"></div>
+
     <script>
-        let selectedImagesData = [];
+        // Initialize particles
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                const size = Math.random() * 100 + 50;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                particle.style.animationDuration = `${15 + Math.random() * 20}s`;
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Table Builder Functions
+        let currentTableStyle = 'default';
         
-        // Tab switching with smooth animation
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const tab = btn.dataset.tab;
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
-                btn.classList.add('active');
-                document.getElementById(`${tab}Pane`).classList.add('active');
+        function generateTable(rows, cols, style = currentTableStyle) {
+            const container = document.getElementById('tablePreviewContainer');
+            const table = document.createElement('table');
+            table.className = 'preview-table';
+            
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+            for (let j = 0; j < cols; j++) {
+                const th = document.createElement('th');
+                th.textContent = `Column ${j + 1}`;
+                th.onclick = () => sortTable(j);
+                headerRow.appendChild(th);
+            }
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+            
+            const tbody = document.createElement('tbody');
+            for (let i = 0; i < rows; i++) {
+                const row = document.createElement('tr');
+                for (let j = 0; j < cols; j++) {
+                    const td = document.createElement('td');
+                    td.setAttribute('contenteditable', 'true');
+                    td.textContent = `Cell ${i + 1},${j + 1}`;
+                    if (style === 'striped' && i % 2 === 1) {
+                        td.style.background = 'rgba(99,102,241,0.1)';
+                    }
+                    if (style === 'compact') {
+                        td.style.padding = '6px';
+                    }
+                    row.appendChild(td);
+                }
+                tbody.appendChild(row);
+            }
+            table.appendChild(tbody);
+            
+            if (style === 'bordered') {
+                table.style.border = '2px solid var(--primary)';
+            }
+            
+            container.innerHTML = '';
+            container.appendChild(table);
+        }
+        
+        function sortTable(colIndex) {
+            const tbody = document.querySelector('.preview-table tbody');
+            if (!tbody) return;
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            rows.sort((a, b) => {
+                const aVal = a.querySelectorAll('td')[colIndex]?.textContent || '';
+                const bVal = b.querySelectorAll('td')[colIndex]?.textContent || '';
+                return aVal.localeCompare(bVal);
             });
-        });
+            rows.forEach(row => tbody.appendChild(row));
+            showToast('Table sorted by column', 'success');
+        }
         
-        // Image preview
-        function previewImages() {
-            const input = document.getElementById('imageInput');
-            const container = document.getElementById('imagePreviewContainer');
-            const grid = document.getElementById('imageGrid');
-            const convertBtn = document.getElementById('convertImagesBtn');
-            
-            selectedImagesData = [];
-            
-            if (input.files.length > 0) {
-                container.style.display = 'block';
-                grid.innerHTML = '';
-                
-                Array.from(input.files).forEach((file, idx) => {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const div = document.createElement('div');
-                        div.className = 'preview-item';
-                        const img = document.createElement('img');
-                        img.src = e.target.result;
-                        div.appendChild(img);
-                        grid.appendChild(div);
-                        selectedImagesData.push(e.target.result);
-                        
-                        if (selectedImagesData.length === input.files.length) {
-                            convertBtn.disabled = false;
-                        }
-                    };
-                    reader.readAsDataURL(file);
-                });
+        function refreshTable() {
+            const rows = parseInt(document.getElementById('tableRows').value) || 3;
+            const cols = parseInt(document.getElementById('tableCols').value) || 3;
+            generateTable(rows, cols, currentTableStyle);
+        }
+        
+        function addRow() {
+            const rows = parseInt(document.getElementById('tableRows').value);
+            if (rows < 20) {
+                document.getElementById('tableRows').value = rows + 1;
+                refreshTable();
+                showToast('Row added', 'success');
             } else {
-                container.style.display = 'none';
-                convertBtn.disabled = true;
+                showToast('Maximum 20 rows allowed', 'warning');
             }
         }
         
-        // Text to PDF
+        function addColumn() {
+            const cols = parseInt(document.getElementById('tableCols').value);
+            if (cols < 20) {
+                document.getElementById('tableCols').value = cols + 1;
+                refreshTable();
+                showToast('Column added', 'success');
+            } else {
+                showToast('Maximum 20 columns allowed', 'warning');
+            }
+        }
+        
+        function removeRow() {
+            const rows = parseInt(document.getElementById('tableRows').value);
+            if (rows > 1) {
+                document.getElementById('tableRows').value = rows - 1;
+                refreshTable();
+                showToast('Row removed', 'info');
+            } else {
+                showToast('Minimum 1 row required', 'warning');
+            }
+        }
+        
+        function removeColumn() {
+            const cols = parseInt(document.getElementById('tableCols').value);
+            if (cols > 1) {
+                document.getElementById('tableCols').value = cols - 1;
+                refreshTable();
+                showToast('Column removed', 'info');
+            } else {
+                showToast('Minimum 1 column required', 'warning');
+            }
+        }
+        
+        function resetTable() {
+            document.getElementById('tableRows').value = 3;
+            document.getElementById('tableCols').value = 3;
+            refreshTable();
+            showToast('Table reset to default', 'success');
+        }
+        
+        function incrementRows() {
+            const input = document.getElementById('tableRows');
+            if (parseInt(input.value) < 20) {
+                input.value = parseInt(input.value) + 1;
+                refreshTable();
+            }
+        }
+        
+        function decrementRows() {
+            const input = document.getElementById('tableRows');
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+                refreshTable();
+            }
+        }
+        
+        function incrementCols() {
+            const input = document.getElementById('tableCols');
+            if (parseInt(input.value) < 20) {
+                input.value = parseInt(input.value) + 1;
+                refreshTable();
+            }
+        }
+        
+        function decrementCols() {
+            const input = document.getElementById('tableCols');
+            if (parseInt(input.value) > 1) {
+                input.value = parseInt(input.value) - 1;
+                refreshTable();
+            }
+        }
+        
+        // Editor Functions
+        function execCommand(cmd) {
+            document.execCommand(cmd, false, null);
+            document.getElementById('richEditor').focus();
+        }
+        
+        function addBox() {
+            const editor = document.getElementById('richEditor');
+            const box = document.createElement('div');
+            box.style.border = '2px solid #6366f1';
+            box.style.padding = '16px';
+            box.style.margin = '12px 0';
+            box.style.borderRadius = '12px';
+            box.style.backgroundColor = 'rgba(99,102,241,0.1)';
+            box.contentEditable = 'true';
+            box.innerHTML = 'Edit this box content';
+            editor.appendChild(box);
+            showToast('Box added', 'success');
+        }
+        
+        function addTable() {
+            const editor = document.getElementById('richEditor');
+            const table = document.createElement('table');
+            table.style.borderCollapse = 'collapse';
+            table.style.width = '100%';
+            table.style.margin = '12px 0';
+            for (let i = 0; i < 3; i++) {
+                const row = table.insertRow();
+                for (let j = 0; j < 3; j++) {
+                    const cell = row.insertCell();
+                    cell.contentEditable = 'true';
+                    cell.style.border = '1px solid rgba(255,255,255,0.2)';
+                    cell.style.padding = '12px';
+                    cell.textContent = `Cell ${i+1},${j+1}`;
+                }
+            }
+            editor.appendChild(table);
+            showToast('Table added', 'success');
+        }
+        
+        function eraserMode() {
+            const editor = document.getElementById('richEditor');
+            editor.style.cursor = 'crosshair';
+            const removeElement = (e) => {
+                if (e.target !== editor && e.target.parentElement !== editor) {
+                    e.target.remove();
+                    showToast('Element removed', 'info');
+                }
+            };
+            editor.addEventListener('click', removeElement);
+            setTimeout(() => {
+                editor.style.cursor = 'text';
+                editor.removeEventListener('click', removeElement);
+            }, 3000);
+            showToast('Eraser mode active for 3 seconds', 'info');
+        }
+        
+        function clearEditor() {
+            document.getElementById('richEditor').innerHTML = '<p>Start typing here...</p>';
+            showToast('Editor cleared', 'info');
+        }
+        
+        function renameDocument() {
+            const newName = prompt('Enter new document name:', document.getElementById('editorTitle').value || 'Document');
+            if (newName) {
+                document.getElementById('editorTitle').value = newName;
+                showToast(`Document renamed to: ${newName}`, 'success');
+            }
+        }
+        
+        // PDF Generation Functions
+        async function generatePDF(element, filename) {
+            const opt = {
+                margin: [0.5, 0.5, 0.5, 0.5],
+                filename: `${filename.replace(/[^a-z0-9]/gi, '_')}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2, logging: false },
+                jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+            document.body.appendChild(element);
+            await html2pdf().set(opt).from(element).save();
+            document.body.removeChild(element);
+            showToast('PDF created successfully!', 'success');
+        }
+        
         async function convertText() {
-            const content = document.getElementById('textContent').value.trim();
-            const title = document.getElementById('docTitle').value.trim() || 'Document';
-            const quality = document.querySelector('input[name="textQuality"]:checked').value;
-            
-            if (!content) {
-                showToast('Please enter content', 'error');
-                return;
-            }
-            
-            showLoading(true);
-            
-            try {
-                const element = document.createElement('div');
-                element.style.padding = '50px';
-                element.style.fontFamily = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif';
-                element.style.backgroundColor = '#ffffff';
-                element.style.maxWidth = '800px';
-                element.style.margin = '0 auto';
-                
-                let fontSize = '14px';
-                let lineHeight = '1.6';
-                let scale = 2;
-                
-                if (quality === 'high') {
-                    fontSize = '15px';
-                    lineHeight = '1.7';
-                    scale = 3;
-                } else if (quality === 'ultra') {
-                    fontSize = '16px';
-                    lineHeight = '1.8';
-                    scale = 4;
-                }
-                
-                element.innerHTML = `
-                    <div style="text-align: center; margin-bottom: 40px;">
-                        <h1 style="color: #1a1a2e; font-size: 28px; margin-bottom: 10px;">${escapeHtml(title)}</h1>
-                        <hr style="border: none; height: 2px; background: linear-gradient(90deg, #667eea, #764ba2); margin: 20px 0;">
-                    </div>
-                    <div style="font-size: ${fontSize}; line-height: ${lineHeight}; color: #2d2d2d;">
-                        ${escapeHtml(content).replace(/\n/g, '<br>')}
-                    </div>
-                    <div style="margin-top: 50px; text-align: center; font-size: 10px; color: #999; border-top: 1px solid #e0e0e0; padding-top: 20px;">
-                        Generated by PDF Master | ${new Date().toLocaleString()}
-                    </div>
-                `;
-                
-                document.body.appendChild(element);
-                
-                const opt = {
-                    margin: [0.75, 0.75, 0.75, 0.75],
-                    filename: `${title.replace(/[^a-z0-9]/gi, '_')}.pdf`,
-                    image: { type: 'jpeg', quality: quality === 'ultra' ? 1 : 0.98 },
-                    html2canvas: { scale: scale, logging: false, useCORS: true },
-                    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-                };
-                
-                await html2pdf().set(opt).from(element).save();
-                document.body.removeChild(element);
-                
-                showToast('PDF generated successfully', 'success');
-            } catch (error) {
-                showToast('Generation failed', 'error');
-            } finally {
-                showLoading(false);
-            }
+            const text = document.getElementById('textContent').value;
+            const title = document.getElementById('docTitle').value || 'Document';
+            if (!text) { showToast('Please enter text', 'error'); return; }
+            const element = document.createElement('div');
+            element.style.padding = '40px';
+            element.style.fontFamily = 'Inter, sans-serif';
+            element.style.background = 'white';
+            element.innerHTML = `
+                <h1 style="color: #6366f1;">${escapeHtml(title)}</h1>
+                <hr style="margin: 20px 0;">
+                <div style="line-height: 1.6;">${escapeHtml(text).replace(/\n/g, '<br>')}</div>
+                <div style="margin-top: 40px; text-align: center; color: #999;">Generated by PDF Master Pro</div>
+            `;
+            await generatePDF(element, title);
         }
         
-        // Images to PDF
-        async function convertImages() {
-            if (selectedImagesData.length === 0) {
-                showToast('Please select images', 'error');
-                return;
-            }
-            
-            showLoading(true);
-            
-            try {
-                const { jsPDF } = window.jspdf;
-                const quality = parseFloat(document.querySelector('input[name="imgQuality"]:checked').value);
-                const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-                const pageWidth = pdf.internal.pageSize.getWidth();
-                const pageHeight = pdf.internal.pageSize.getHeight();
-                
-                for (let i = 0; i < selectedImagesData.length; i++) {
-                    if (i > 0) pdf.addPage();
-                    
-                    const img = new Image();
-                    await new Promise((resolve) => {
-                        img.onload = () => {
-                            const ratio = img.width / img.height;
-                            let width = pageWidth - 20;
-                            let height = width / ratio;
-                            
-                            if (height > pageHeight - 20) {
-                                height = pageHeight - 20;
-                                width = height * ratio;
-                            }
-                            
-                            const x = (pageWidth - width) / 2;
-                            const y = (pageHeight - height) / 2;
-                            pdf.addImage(img, 'JPEG', x, y, width, height, undefined, quality);
-                            resolve();
-                        };
-                        img.src = selectedImagesData[i];
-                    });
-                }
-                
-                pdf.save('images.pdf');
-                showToast(`${selectedImagesData.length} image(s) converted`, 'success');
-                
-                document.getElementById('imageInput').value = '';
-                document.getElementById('imagePreviewContainer').style.display = 'none';
-                document.getElementById('convertImagesBtn').disabled = true;
-                selectedImagesData = [];
-            } catch (error) {
-                showToast('Conversion failed', 'error');
-            } finally {
-                showLoading(false);
-            }
-        }
-        
-        // Code to PDF
         async function convertCode() {
             const code = document.getElementById('codeInput').value;
-            const title = document.getElementById('codeTitle').value.trim() || 'Code Document';
-            const language = document.getElementById('codeLang').value;
-            
-            if (!code) {
-                showToast('Please enter code', 'error');
+            const title = document.getElementById('codeTitle').value || 'Code';
+            const lang = document.getElementById('codeLanguage').value;
+            if (!code) { showToast('Please enter code', 'error'); return; }
+            const element = document.createElement('div');
+            element.style.padding = '40px';
+            element.style.background = '#1e1e1e';
+            element.style.color = '#d4d4d4';
+            element.innerHTML = `
+                <div style="background: #2d2d2d; padding: 20px; border-radius: 12px;">
+                    <h1 style="color: #6366f1;">${escapeHtml(title)}</h1>
+                    <p>Language: ${lang.toUpperCase()}</p>
+                </div>
+                <pre style="background: #1e1e1e; padding: 20px; overflow-x: auto;"><code class="language-${lang}">${escapeHtml(code)}</code></pre>
+            `;
+            await generatePDF(element, title);
+        }
+        
+        async function convertEditor() {
+            const content = document.getElementById('richEditor').innerHTML;
+            const title = document.getElementById('editorTitle').value || 'Document';
+            const element = document.createElement('div');
+            element.style.padding = '40px';
+            element.style.fontFamily = 'Inter, sans-serif';
+            element.innerHTML = `
+                <h1 style="color: #6366f1;">${escapeHtml(title)}</h1>
+                <hr style="margin: 20px 0;">
+                ${content}
+            `;
+            await generatePDF(element, title);
+        }
+        
+        async function exportTableToPDF() {
+            const tableHTML = document.querySelector('.preview-table');
+            if (!tableHTML) {
+                showToast('Please create a table first', 'error');
                 return;
             }
-            
-            showLoading(true);
-            
-            try {
-                const element = document.createElement('div');
-                element.style.padding = '40px';
-                element.style.backgroundColor = '#0a0a0f';
-                element.style.color = '#e0e0e0';
-                element.style.fontFamily = 'Monaco, "Courier New", monospace';
-                
-                element.innerHTML = `
-                    <div style="background: linear-gradient(135deg, #667eea, #764ba2); padding: 25px; border-radius: 12px; margin-bottom: 25px;">
-                        <h1 style="color: white; margin: 0; font-size: 24px;">${escapeHtml(title)}</h1>
-                        <p style="color: rgba(255,255,255,0.8); margin-top: 8px;">Language: ${language.toUpperCase()}</p>
-                    </div>
-                    <pre style="background: #0a0a0f; padding: 20px; overflow-x: auto; font-size: 12px; line-height: 1.5;"><code>${escapeHtml(code)}</code></pre>
-                    <div style="margin-top: 30px; text-align: center; font-size: 10px; color: #666; border-top: 1px solid #2d2d2d; padding-top: 20px;">
-                        Generated by PDF Master
-                    </div>
-                `;
-                
-                document.body.appendChild(element);
-                
-                const opt = {
-                    margin: [0.5, 0.5, 0.5, 0.5],
-                    filename: `${title.replace(/[^a-z0-9]/gi, '_')}.pdf`,
-                    image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { scale: 2.5, logging: false },
-                    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-                };
-                
-                await html2pdf().set(opt).from(element).save();
-                document.body.removeChild(element);
-                
-                showToast('Code PDF generated', 'success');
-            } catch (error) {
-                showToast('Generation failed', 'error');
-            } finally {
-                showLoading(false);
-            }
+            const element = document.createElement('div');
+            element.style.padding = '40px';
+            element.innerHTML = `<h1 style="color: #6366f1;">Table Document</h1><hr>${tableHTML.outerHTML}`;
+            await generatePDF(element, 'Table_Document');
         }
         
-        // PDF Edit Functions
-        let currentPDFBuffer = null;
+        // Label Functions
+        let labels = [];
         
-        document.getElementById('pdfFile').addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                currentPDFBuffer = await file.arrayBuffer();
-                showToast(`Loaded: ${file.name}`, 'success');
-            }
-        });
-        
-        async function extractInfo() {
-            if (!currentPDFBuffer) {
-                showToast('Please upload a PDF', 'error');
-                return;
-            }
-            
-            try {
-                const pdfDoc = await PDFLib.PDFDocument.load(currentPDFBuffer);
-                const pages = pdfDoc.getPages();
-                const info = `Pages: ${pages.length}\nSize: ${(currentPDFBuffer.byteLength / 1024).toFixed(2)} KB\nVersion: PDF ${pdfDoc.getVersion() || '1.4'}`;
-                
-                document.getElementById('infoText').value = info;
-                document.getElementById('editResult').style.display = 'block';
-                showToast('Information extracted', 'success');
-            } catch (error) {
-                showToast('Extraction failed', 'error');
-            }
+        function addLabel() {
+            const text = document.getElementById('labelText').value.trim();
+            const color = document.getElementById('labelColor').value;
+            if (!text) { showToast('Please enter label text', 'error'); return; }
+            labels.push({ text, color });
+            renderLabels();
+            document.getElementById('labelText').value = '';
+            showToast('Label added', 'success');
         }
         
-        async function rotateDocument() {
-            if (!currentPDFBuffer) {
-                showToast('Please upload a PDF', 'error');
-                return;
-            }
-            
-            showLoading(true);
-            
-            try {
-                const pdfDoc = await PDFLib.PDFDocument.load(currentPDFBuffer);
-                const pages = pdfDoc.getPages();
-                pages.forEach(page => page.setRotation(PDFLib.degrees(90)));
-                
-                const pdfBytes = await pdfDoc.save();
-                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = 'rotated.pdf';
-                link.click();
-                URL.revokeObjectURL(link.href);
-                
-                showToast('PDF rotated', 'success');
-            } catch (error) {
-                showToast('Rotation failed', 'error');
-            } finally {
-                showLoading(false);
-            }
+        function renderLabels() {
+            const container = document.getElementById('labelsContainer');
+            container.innerHTML = labels.map((label, i) => `
+                <div class="label-card" style="border-left: 3px solid ${label.color}" onclick="removeLabel(${i})">
+                    <i class="fas fa-tag" style="color: ${label.color}"></i>
+                    <div style="margin-top: 8px; font-weight: 600;">${escapeHtml(label.text)}</div>
+                    <small style="color: #64748b;">Click to remove</small>
+                </div>
+            `).join('');
         }
         
-        async function compressDocument() {
-            if (!currentPDFBuffer) {
-                showToast('Please upload a PDF', 'error');
-                return;
-            }
-            
-            showLoading(true);
-            
-            try {
-                const pdfDoc = await PDFLib.PDFDocument.load(currentPDFBuffer);
-                const pdfBytes = await pdfDoc.save({ useObjectStreams: false });
-                
-                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = 'compressed.pdf';
-                link.click();
-                URL.revokeObjectURL(link.href);
-                
-                const originalSize = (currentPDFBuffer.byteLength / 1024).toFixed(2);
-                const newSize = (pdfBytes.byteLength / 1024).toFixed(2);
-                showToast(`Compressed: ${originalSize}KB → ${newSize}KB`, 'success');
-            } catch (error) {
-                showToast('Compression failed', 'error');
-            } finally {
-                showLoading(false);
-            }
+        function removeLabel(i) {
+            labels.splice(i, 1);
+            renderLabels();
+            showToast('Label removed', 'info');
         }
         
-        // Helper Functions
-        function showToast(message, type) {
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            
-            setTimeout(() => {
-                toast.remove();
-            }, 3000);
+        async function exportLabels() {
+            if (labels.length === 0) { showToast('No labels to export', 'error'); return; }
+            const element = document.createElement('div');
+            element.style.padding = '40px';
+            element.innerHTML = `
+                <h1 style="color: #6366f1;">Labels Document</h1>
+                <hr>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 30px;">
+                    ${labels.map(label => `
+                        <div style="border: 2px solid ${label.color}; padding: 20px; text-align: center; border-radius: 12px;">
+                            <div style="font-size: 18px; font-weight: bold; color: ${label.color};">${escapeHtml(label.text)}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+            await generatePDF(element, 'Labels');
         }
         
-        function showLoading(show) {
-            const btns = document.querySelectorAll('.btn:not(.btn-secondary)');
-            btns.forEach(btn => {
-                if (show && !btn.disabled) {
-                    btn.disabled = true;
-                    const originalText = btn.textContent;
-                    btn.setAttribute('data-original', originalText);
-                    btn.innerHTML = originalText + '<span class="spinner"></span>';
-                } else if (!show && btn.disabled) {
-                    btn.disabled = false;
-                    const original = btn.getAttribute('data-original');
-                    if (original) {
-                        btn.innerHTML = original;
-                        btn.removeAttribute('data-original');
-                    }
-                }
+        async function convertImagesToPDF() {
+            const files = document.getElementById('imageFiles').files;
+            if (files.length === 0) { showToast('Please select images', 'error'); return; }
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF();
+            for (let i = 0; i < files.length; i++) {
+                const imgData = await readFileAsDataURL(files[i]);
+                if (i > 0) pdf.addPage();
+                pdf.addImage(imgData, 'JPEG', 15, 15, 180, 160);
+            }
+            pdf.save('images.pdf');
+            showToast('Images converted to PDF!', 'success');
+        }
+        
+        function readFileAsDataURL(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => resolve(e.target.result);
+                reader.readAsDataURL(file);
             });
+        }
+        
+        function formatCode() {
+            const code = document.getElementById('codeInput').value;
+            document.getElementById('codeInput').value = code.split('\n').map(l => l.trim()).join('\n');
+            showToast('Code formatted', 'success');
         }
         
         function escapeHtml(text) {
@@ -925,11 +1292,83 @@
             return div.innerHTML;
         }
         
-        // Sample content on load
+        function showToast(msg, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            const icons = { success: '✅', error: '❌', info: 'ℹ️', warning: '⚠️' };
+            toast.innerHTML = `${icons[type]} ${msg}`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+        
+        // Image Preview for PDF Converter
+        document.getElementById('imageFiles').addEventListener('change', (e) => {
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = '';
+            Array.from(e.target.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.width = '80px';
+                    img.style.height = '80px';
+                    img.style.objectFit = 'cover';
+                    img.style.borderRadius = '12px';
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+        
+        // Table style selection
+        document.querySelectorAll('.style-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('.style-chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                currentTableStyle = chip.dataset.style;
+                refreshTable();
+                showToast(`Table style changed to ${currentTableStyle}`, 'success');
+            });
+        });
+        
+        // Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                item.classList.add('active');
+                const sectionId = `${item.dataset.section}Section`;
+                document.getElementById(sectionId).classList.add('active');
+            });
+        });
+        
+        // Event Listeners
+        document.getElementById('convertTextBtn').addEventListener('click', convertText);
+        document.getElementById('convertCodeBtn').addEventListener('click', convertCode);
+        document.getElementById('convertEditorBtn').addEventListener('click', convertEditor);
+        document.getElementById('exportLabelsBtn').addEventListener('click', exportLabels);
+        document.getElementById('addLabelBtn').addEventListener('click', addLabel);
+        document.getElementById('convertImageBtn').addEventListener('click', convertImagesToPDF);
+        document.getElementById('formatCodeBtn').addEventListener('click', formatCode);
+        
+        // Table event listeners
+        document.getElementById('addRowBtn').addEventListener('click', addRow);
+        document.getElementById('addColumnBtn').addEventListener('click', addColumn);
+        document.getElementById('removeRowBtn').addEventListener('click', removeRow);
+        document.getElementById('removeColumnBtn').addEventListener('click', removeColumn);
+        document.getElementById('exportTableBtn').addEventListener('click', exportTableToPDF);
+        document.getElementById('resetTableBtn').addEventListener('click', resetTable);
+        document.getElementById('tableRows').addEventListener('change', refreshTable);
+        document.getElementById('tableCols').addEventListener('change', refreshTable);
+        
+        // Initialize table
+        refreshTable();
+        
+        // Sample content
         window.addEventListener('load', () => {
-            const textarea = document.getElementById('textContent');
-            if (textarea.value === '') {
-                textarea.value = 'PDF Master\n\nProfessional Document Conversion\n\nCreate stunning PDF documents with ease.\n\n✓ High quality output\n✓ Multiple formats supported\n✓ Fast & reliable';
+            if (!document.getElementById('textContent').value) {
+                document.getElementById('textContent').value = 'Welcome to PDF Master Pro!\n\nThe ultimate professional PDF toolkit.\n\nFeatures:\n✓ Text to PDF\n✓ Image to PDF\n✓ Code to PDF with syntax highlighting\n✓ Advanced editor with formatting\n✓ Professional Table Builder\n✓ Label Maker\n\nCreate stunning PDFs instantly!';
             }
         });
     </script>
