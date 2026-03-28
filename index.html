@@ -568,7 +568,6 @@
             display: flex;
             gap: 12px;
             flex-wrap: wrap;
-            margin-bottom: 20px;
         }
 
         .style-chip {
@@ -661,6 +660,100 @@
                 padding: 20px;
             }
         }
+
+        /* ===== CPA PROMO BANNER — NEW ADDITION ONLY ===== */
+        .cpa-promo-banner {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 32px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #ec489a 100%);
+            padding: 2px;
+            animation: promoPulse 3s infinite;
+        }
+        @keyframes promoPulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.5); }
+            50% { box-shadow: 0 0 30px 8px rgba(245,158,11,0.3); }
+        }
+        .cpa-promo-inner {
+            background: rgba(10, 10, 20, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 18px;
+            padding: 20px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .cpa-promo-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .cpa-promo-icon {
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+        .cpa-promo-text h4 {
+            color: #ffffff;
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 4px;
+            letter-spacing: -0.01em;
+        }
+        .cpa-promo-text p {
+            color: rgba(255,255,255,0.65);
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .cpa-promo-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #f59e0b 0%, #ef4444 100%);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 13px 28px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 14px;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            transition: all 0.3s;
+            box-shadow: 0 4px 20px rgba(245,158,11,0.4);
+            flex-shrink: 0;
+        }
+        .cpa-promo-btn:hover {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 8px 30px rgba(245,158,11,0.6);
+        }
+        .cpa-promo-btn i {
+            font-size: 16px;
+        }
+        @media (max-width: 600px) {
+            .cpa-promo-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+            .cpa-promo-left {
+                flex-direction: column;
+                align-items: center;
+            }
+            .cpa-promo-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+        /* ===== END CPA PROMO BANNER ===== */
     </style>
 </head>
 <body>
@@ -700,6 +793,23 @@
                 </div>
             </div>
         </div>
+
+        <!-- ===== CPA PROMO BANNER — INSERTED AFTER STATS GRID ===== -->
+        <div class="cpa-promo-banner">
+            <div class="cpa-promo-inner">
+                <div class="cpa-promo-left">
+                    <div class="cpa-promo-icon">🎁</div>
+                    <div class="cpa-promo-text">
+                        <h4>🔥 Unlock Premium Features — Limited Time Offer!</h4>
+                        <p>Get exclusive access to advanced PDF tools, templates & more. Claim your free reward now!</p>
+                    </div>
+                </div>
+                <a href="https://omg10.com/4/10770942" target="_blank" rel="noopener" class="cpa-promo-btn">
+                    <i class="fas fa-gift"></i> Claim Free Offer →
+                </a>
+            </div>
+        </div>
+        <!-- ===== END CPA PROMO BANNER ===== -->
 
         <div class="nav-wrapper">
             <div class="main-nav">
